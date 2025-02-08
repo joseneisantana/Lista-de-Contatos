@@ -8,11 +8,15 @@ const AppContainer = styled.div`
   font-family: Arial, sans-serif;
 `;
 
+
 const Titulo = styled.h1`
   text-align: center;
   color: #333;
+   margin-bottom: 20px
 `;
-
+const FormularioWrapper = styled.div`
+  margin-bottom: 30px; // Adiciona um espaçamento abaixo do formulário
+`;
 function App() {
   return (
     <AppContainer>
