@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { adicionarContato, editarContato } from '../recursos/contatosSlice';
+import { adicionarContato } from '../features/contatos/contatosSlice';
 import styled from 'styled-components';
 
-const Form = styled.form`
+const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -11,47 +11,36 @@ const Form = styled.form`
 `;
 
 const Input = styled.input`
-  padding: 10px;
+  padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 4px;
 `;
 
 const Button = styled.button`
   padding: 10px;
-  background-color: #28a745;
+  background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
 `;
 
-const FormularioContato = ({ contatoParaEditar, setContatoParaEditar }) => {
+const FormularioContato = () => {
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [telefone, setTelefone] = useState('');
   const dispatch = useDispatch();
-  const [nome, setNome] = useState(contatoParaEditar ? contatoParaEditar.nome : '');
-  const [email, setEmail] = useState(contatoParaEditar ? contatoParaEditar.email : '');
-  const [telefone, setTelefone] = useState(contatoParaEditar ? contatoParaEditar.telefone : '');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const contato = {
-      id: contatoParaEditar ? contatoParaEditar.id : Date.now(),
-      nome,
-      email,
-      telefone,
-    };
-    if (contatoParaEditar) {
-      dispatch(editarContato(contato));
-    } else {
-      dispatch(adicionarContato(contato));
-    }
+    dispatch(adicionarContato({ nome, email, telefone }));
     setNome('');
     setEmail('');
     setTelefone('');
-    setContatoParaEditar(null);
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <FormContainer onSubmit={handleSubmit}>
       <Input
         type="text"
         placeholder="Nome Completo"
@@ -73,10 +62,8 @@ const FormularioContato = ({ contatoParaEditar, setContatoParaEditar }) => {
         onChange={(e) => setTelefone(e.target.value)}
         required
       />
-      <Button type="submit">
-        {contatoParaEditar ? 'Salvar Edição' : 'Adicionar Contato'}
-      </Button>
-    </Form>
+      <Button type="submit">Adicionar Contato</Button>
+    </FormContainer>
   );
 };
 

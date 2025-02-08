@@ -1,33 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { store } from './app/store';
+import App from './App';
+import GlobalStyles from './styles/GlobalStyles';
 
-const estadoInicial = {
-  contatos: [],
-};
-
-const contatosSlice = createSlice({
-  name: 'contatos',
-  initialState: estadoInicial,
-  reducers: {
-    adicionarContato: (state, action) => {
-      state.contatos.push(action.payload);
-    },
-    removerContato: (state, action) => {
-      state.contatos = state.contatos.filter(
-        (contato) => contato.id !== action.payload
-      );
-    },
-    editarContato: (state, action) => {
-      const index = state.contatos.findIndex(
-        (contato) => contato.id === action.payload.id
-      );
-      if (index !== -1) {
-        state.contatos[index] = action.payload;
-      }
-    },
-  },
-});
-
-export const { adicionarContato, removerContato, editarContato } = contatosSlice.actions;
-export default contatosSlice.reducer;
-
-
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <GlobalStyles />
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);

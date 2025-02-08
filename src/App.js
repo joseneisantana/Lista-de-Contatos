@@ -1,12 +1,26 @@
 import React from 'react';
-import ListaContatos from './componentes/ListaContatos';
+import FormularioContato from './components/FormularioContato';
+import ListaContatos from './components/ListaContatos';
+import styled from 'styled-components';
 
-const App = () => {
+const AppContainer = styled.div`
+  padding: 20px;
+  font-family: Arial, sans-serif;
+`;
+
+const Titulo = styled.h1`
+  text-align: center;
+  color: #333;
+`;
+
+function App() {
   return (
-    <div>
+    <AppContainer>
+      <Titulo>Lista de Contatos</Titulo>
+      <FormularioContato />
       <ListaContatos />
-    </div>
+    </AppContainer>
   );
-};
+}
 
 export default App;
